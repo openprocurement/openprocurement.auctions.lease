@@ -44,7 +44,8 @@ Schema
 
     * `auction`
     * `item`
-..    * `lot`
+
+..  * `lot`
 
 :relatedItem:
     string

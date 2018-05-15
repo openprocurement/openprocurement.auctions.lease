@@ -40,7 +40,7 @@ Schema
 
       Information on bidders or participants, their validation documents and any procedural exemptions for which they qualify.
 
-    * `virtualDataRoom` - **Virtual Data Room** (available only for the `dgfFinancialAssets` procedure, see :ref:`fintutorial`)
+..    * `virtualDataRoom` - **Virtual Data Room** (available only for the `dgfFinancialAssets` procedure, see :ref:`fintutorial`)
 
     * `illustration` - **Illustrations**
 
@@ -82,7 +82,7 @@ Schema
 
     * `eligibilityDocuments` - **Eligibility documents**
 
-    * `financialLicense` - **License** (available only for the `dgfFinancialAssets` procedure, see :ref:`fintutorial`)
+..    * `financialLicense` - **License** (available only for the `dgfFinancialAssets` procedure, see :ref:`fintutorial`)
 
     * `auctionProtocol` - **Auction protocol**
 
@@ -143,7 +143,8 @@ Schema
 
     * `auction`
     * `item`
-..    * `lot`
+
+..  * `lot`
 
 :relatedItem:
     string

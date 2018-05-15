@@ -6,6 +6,8 @@ Tutorial
 Exploring basic rules
 ---------------------
 
+*This Tutorial is out of date.*
+
 Let's try exploring the `/auctions` endpoint:
 
 .. include:: tutorial/auction-listing.http

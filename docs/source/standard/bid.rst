@@ -1,6 +1,6 @@
 .. . Kicking page rebuild 2014-10-30 17:00:08
 
-.. index:: Bid, Parameter, LotValue, bidder, participant, pretendent
+.. index:: Bid, bidder, participant, pretendent
 
 .. _bid:
 
@@ -10,8 +10,22 @@ Bid
 Schema
 ------
 
+:status:
+    string, default='active'
+
+    Possible values are:
+
+    * `draft`
+    * `active`
+
 :tenderers:
-    List of :ref:`Organization` objects
+    List of :ref:`Organization` objects, required
+
+:documents:
+    List of :ref:`Document` objects, default='empty list'
+
+:qualified:
+    bool, required
 
 :date:
     string, :ref:`date`, auto-generated
@@ -21,30 +35,19 @@ Schema
 :id:
     UID, auto-generated
 
-:status:
-    string
-
-    Possible values are:
-
-    * `draft`
-    * `active`
-
 :value:
     :ref:`Value`, required
 
     Validation rules:
 
-    * `amount` should be less than `Auction.value.amout`
-    * `currency` should either be absent or match `Auction.value.currency`
-    * `valueAddedTaxIncluded` should either be absent or match `Auction.value.valueAddedTaxIncluded`
-
-:documents:
-    List of :ref:`Document` objects
+    * ``amount`` should be less than ``Auction.value.amout``
+    * ``currency`` should either be absent or match ``Auction.value.currency``
+    * ``valueAddedTaxIncluded`` should either be absent or match ``Auction.value.valueAddedTaxIncluded``
 
 :parameters:
     List of :ref:`Parameter` objects
 
-.. :lotValues:
+.. ASK:lotValues:
     List of :ref:`LotValue` objects
 
 :participationUrl:
@@ -52,58 +55,5 @@ Schema
 
     A web address for participation in auction.
 
-:qualified:
-    bool, required
-
 :eligible:
     bool
-
-    Required for `dgfFinancialAssets` procedure.
-
-.. _Parameter:
-
-Parameter
-=========
-
-Schema
-------
-
-:code:
-    string, required
-
-    Feature code.
-
-:value:
-    float, required
-
-    Feature value.
-
-.. _LotValue:
-
-.. LotValue
-   ========
-
-   Schema
-   ------
-
-   :value:
-    :ref:`Value`, required
-
-    Validation rules:
-
-    * `amount` should be less than `Lot.value.amout`
-    * `currency` should either be absent or match `Lot.value.currency`
-    * `valueAddedTaxIncluded` should either be absent or match `Lot.value.valueAddedTaxIncluded`
-
-   :relatedLot:
-    string
-
-    ID of related :ref:`lot`.
-
-   :date:
-    string, :ref:`date`, auto-generated
-
-   :participationUrl:
-    URL
-
-    A web address for participation in auction.
