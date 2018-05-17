@@ -10,7 +10,7 @@
 Welcome to `"openprocurement.auctions.lease"` package documentation!
 ####################################################################
 
-Please report any problems or suggestions for improvement via the `Issue  tracker`_.
+Please report any problems or suggestions for improvement via the `Issue  tracker <https://github.com/openprocurement/openprocurement.auctions.lease>`_.
 
 .. note:: Please note that the documentation currently is updating and somewhat out of date.
 
@@ -52,10 +52,3 @@ Indices and tables
 * :ref:`genindex`
 
 .. * :ref:`modindex`
-
-References
-==========
-
-.. target-notes::
-
-.. _`Issue  tracker`: https://github.com/openprocurement/openprocurement.auctions.lease

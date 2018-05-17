@@ -12,7 +12,7 @@ Schema
 :title:
    string, multilingual, read-only, editable during enquiryPeriod
 
-   Auction number in the Deposit Guarantee Fund.
+   Auction number.
 
 :description:
    string, multilingual, editable during enquiryPeriod
@@ -31,7 +31,7 @@ Schema
 :dgfID:
     string, editable during enquiryPeriod
     
-    Identification number of the auction (also referred to as ``lot``) in the XLS of Deposit Guarantee Fund.
+    Identification number of the auction.
 
 :procuringEntity:
    :ref:`ProcuringEntity`, required
@@ -43,7 +43,7 @@ Schema
    using the items being procured.
 
 :value:
-   :ref:`value`, required, editable during enquiryPeriod
+   :ref:`Value`, required, editable during enquiryPeriod
 
    Total available auction budget. Bids lower than ``value`` will be rejected.
 
@@ -56,7 +56,7 @@ Schema
     Bid guarantee
 
 :items:
-   list of :ref:`item` objects, required, editable during enquiryPeriod
+   list of :ref:`Item` objects, required, editable during enquiryPeriod
 
    List that contains single item being sold. 
 
@@ -195,14 +195,14 @@ Schema
    Contains all auction lots.
 
 :cancellations:
-   List of :ref:`cancellation` objects.
+   List of :ref:`Cancellation` objects.
 
    Contains 1 object with ``active`` status in case of cancelled Auction.
 
-   The :ref:`cancellation` object describes the reason of auction cancellation and contains accompanying
+   The :ref:`Cancellation` object describes the reason of auction cancellation and contains accompanying
    documents if there are any.
 
 :revisions:
-   List of :ref:`revision` objects, auto-generated
+   List of :ref:`Revision` objects, auto-generated
 
    Historical changes to ``Auction`` object properties.

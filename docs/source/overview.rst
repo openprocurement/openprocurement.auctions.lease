@@ -7,7 +7,7 @@ of the PROZORRO.SALE system and intended to discover all aspects of ``lease proc
 
 The following subjects can act as an Organizer:
 
-* `State Property Fund of Ukraine`_;
+* `State Property Fund of Ukraine <http://www.spfu.gov.ua>`_;
 
 * state enterprises;
 
@@ -93,7 +93,7 @@ Features
 
 * Procedure can be switched from ``draft`` status to ``active.tendering``.
 
-* During ``active.tendering`` period participants can ask questions, submit proposals, and upload documents.
+* During ``active.tendering`` status participants can ask questions, submit proposals, and upload documents.
 
 * The items within an auction are allowed to be from different CAV groups.
 
@@ -135,7 +135,7 @@ There is predefined list of possible items to lease (please, refer to ``CAV-PS``
 Conventions
 -----------
 
-API accepts `JSON`_ or form-encoded content in
+API accepts `JSON <http://json.org/>`_ or form-encoded content in
 requests.  It returns JSON content in all of its responses, including
 errors.  Only the UTF-8 character encoding is supported for both requests
 and responses.
@@ -187,10 +187,8 @@ TBD: provide an API tutorial
 
 .. You might find it helpful to look at the :ref:`tutorial`.
 
-
-**********
 References
-**********
+==========
 
 .. target-notes::
 
