@@ -44,7 +44,8 @@ Schema
     Possible values are:
 
     * `auction`
-..    * `lot`
+
+.. * `lot`
 
 .. :relatedLot:
     string

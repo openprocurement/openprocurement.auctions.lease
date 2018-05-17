@@ -1,4 +1,3 @@
-.. . Kicking page rebuild 2014-10-30 17:00:08
 .. include:: defs.hrst
 
 .. index:: Auction, Auction
@@ -13,7 +12,7 @@ Schema
 :title:
    string, multilingual, read-only, editable during enquiryPeriod
 
-   Auction number in the Deposit Guarantee Fund.
+   Auction number.
 
 :description:
    string, multilingual, editable during enquiryPeriod
@@ -26,26 +25,25 @@ Schema
    The auction identifier to refer auction to in "paper" documentation. 
 
    |ocdsDescription|
-   AuctionID should always be the same as the OCID. It is included to make the flattened data structure more convenient.
+   AuctionID should always be the same as the OCID.
+   It is included to make the flattened data structure more convenient.
    
 :dgfID:
     string, editable during enquiryPeriod
     
-    Identification number of the auction (also referred to as `lot`) in the XLS of Deposit Guarantee Fund.
+    Identification number of the auction.
 
-   
 :procuringEntity:
    :ref:`ProcuringEntity`, required
 
    Organization conducting the auction.
-   
 
    |ocdsDescription|
-   The entity managing the procurement, which may be different from the buyer who is paying / using the items being procured.
+   The entity managing the procurement, which may be different from the buyer who is paying /
+   using the items being procured.
 
-   
 :value:
-   :ref:`value`, required, editable during enquiryPeriod
+   :ref:`Value`, required, editable during enquiryPeriod
 
    Total available auction budget. Bids lower than ``value`` will be rejected.
 
@@ -58,12 +56,13 @@ Schema
     Bid guarantee
 
 :items:
-   list of :ref:`item` objects, required, editable during enquiryPeriod
+   list of :ref:`Item` objects, required, editable during enquiryPeriod
 
    List that contains single item being sold. 
 
    |ocdsDescription|
-   The goods and services to be purchased, broken into line items wherever possible. Items should not be duplicated, but a quantity of 2 specified instead.
+   The goods and services to be purchased, broken into line items wherever possible.
+   Items should not be duplicated, but a quantity of 2 specified instead.
 
 :features:
    list of :ref:`Feature` objects
@@ -89,7 +88,8 @@ Schema
 :bids:
    List of :ref:`bid` objects
 
-   A list of all bids placed in the auction with information about participants, their proposals and other qualification documentation.
+   A list of all bids placed in the auction with information about participants,
+   their proposals and other qualification documentation.
 
    |ocdsDescription|
    A list of all the companies who entered submissions for the auction.
@@ -97,21 +97,23 @@ Schema
 :minNumberOfQualifiedBids:
    integer, optional
    
-   The field that indicates the minimal number of qualified bids. The possible values for the field are 1 or 2.
+   The field that indicates the minimal number of qualified bids.
+   Possible values for the field are 1 or 2.
    
    In case of the field has been remained blank, the workflow will be similar to the auction with 2 bids.
    
-   You can also fill in the field, assigning the value "1". This will show that the only one bidder is needed 
-   for the procedure to be successful. Therewith the auction is omitted and that bid turns to a qualified award.
+   You can also fill in the field, assigning the value "1".
+   This will show that the only one bidder is needed for the procedure to be successful.
+   Therewith the auction is omitted and that bid turns to a qualified award.
    
 :minimalStep:
    :ref:`value`, required, editable during enquiryPeriod
 
    The minimal step of auction. Validation rules:
 
-   * `amount` should be greater than `Auction.value.amount`
-   * `currency` should either be absent or match `Auction.value.currency`
-   * `valueAddedTaxIncluded` should either be absent or match `Auction.value.valueAddedTaxIncluded`
+   * ``amount`` should be greater than ``Auction.value.amount``
+   * ``currency`` should either be absent or match ``Auction.value.currency``
+   * ``valueAddedTaxIncluded`` should either be absent or match ``Auction.value.valueAddedTaxIncluded``
 
 :awards:
     List of :ref:`award` objects
@@ -135,7 +137,8 @@ Schema
    Period when bids can be submitted.
 
    |ocdsDescription|
-   The period when the auction is open for submissions. The end date is the closing date for auction submissions.
+   The period when the auction is open for submissions.
+   The end date is the closing date for auction submissions.
 
 :auctionPeriod:
    :ref:`period`, required
@@ -143,9 +146,9 @@ Schema
    Period when Auction is conducted. `startDate` should be provided.
 
 :auctionUrl:
-    url
+   url
 
-    A web address where auction is accessible for view.
+   A web address where auction is accessible for view.
 
 :awardPeriod:
    :ref:`period`, read-only
@@ -158,34 +161,32 @@ Schema
 :status:
    string
 
-   :`active.tendering`:
-       Tendering period (tendering)
-   :`active.auction`:
-       Auction period (auction)
-   :`active.qualification`:
-       Winner qualification (qualification)
-   :`active.awarded`:
-       Standstill period (standstill)
-   :`unsuccessful`:
-       Unsuccessful auction (unsuccessful)
-   :`complete`:
-       Complete auction (complete)
-   :`cancelled`:
-       Cancelled auction (cancelled)
-
    Auction status.
+
+   active.tendering
+        tendering period (tendering)
+   active.auction
+        auction period (auction)
+   active.qualification
+        winner qualification (qualification)
+   active.awarded
+        standstill period (standstill)
+   unsuccessful
+        unsuccessful auction (unsuccessful)
+   complete
+        complete auction (complete)
+   cancelled
+        cancelled auction (cancelled)
 
 :eligibilityCriteria:
     string, read-only
     
-    Required for `dgfFinancialAssets` procedure.
-    
-    This field is multilingual: 
+    This field is multilingual:
     
     * Ukrainian by default - До участі допускаються лише ліцензовані фінансові установи.
     
     * ``eligibilityCriteria_ru`` (Russian) - К участию допускаются только лицензированные финансовые учреждения.
-    
+
     * ``eligibilityCriteria_en`` (English) - Only licensed financial institutions are eligible to participate.
     
 .. :lots:
@@ -194,14 +195,14 @@ Schema
    Contains all auction lots.
 
 :cancellations:
-   List of :ref:`cancellation` objects.
+   List of :ref:`Cancellation` objects.
 
-   Contains 1 object with `active` status in case of cancelled Auction.
+   Contains 1 object with ``active`` status in case of cancelled Auction.
 
-   The :ref:`cancellation` object describes the reason of auction cancellation and contains accompanying
-   documents  if there are any.
+   The :ref:`Cancellation` object describes the reason of auction cancellation and contains accompanying
+   documents if there are any.
 
 :revisions:
-   List of :ref:`revision` objects, auto-generated
+   List of :ref:`Revision` objects, auto-generated
 
-   Historical changes to `Auction` object properties.
+   Historical changes to ``Auction`` object properties.

@@ -32,7 +32,7 @@ Date
 Date/time in :ref:`date-format`.
 
 .. index:: Value, Currency, VAT
-.. _value:
+.. _Value:
 
 Value
 =====
@@ -41,21 +41,19 @@ Schema
 ------
 
 :amount:
-    float, required
+    float, required, min=0
 
-    |ocdsDescription|
-    Amount as a number.
-
-    Should be positive.
+    Value amount (e.g.: `2.45`).
 
 :currency:
-    string, required
+    string, required, default='UAH', len=3
 
     |ocdsDescription|
-    The currency in 3-letter ISO 4217 format.
+    The currency in 3-letter ISO 4217 format (e.g.: `USD`).
 
 :valueAddedTaxIncluded:
-    bool, required
+    bool, required, default=True
+
 
 .. index:: Revision, Change Tracking
 .. _revision:

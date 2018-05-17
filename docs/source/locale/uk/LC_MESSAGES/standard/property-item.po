@@ -1,0 +1,194 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openprocurement.auctions.lease 1.1.1-sale\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-16 14:39+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "PropertyItem"
+msgstr "PropertyItem"
+
+msgid "Schema"
+msgstr "Схема"
+
+msgid "string, required, auto-generated"
+msgstr "строка, обов'якове, автоматично згенероване"
+
+msgid "string, multilingual, required"
+msgstr "строка, багатомовне, обов'язкове"
+
+msgid "A description of the property to be leased."
+msgstr "Опис власності для оренди."
+
+msgid "Auction subject / asset description."
+msgstr "Предмет аукціону."
+
+msgid ":ref:`PropertyLeaseClassification`, required"
+msgstr "Об'єкт :ref:`PropertyLeaseClassification`, обов'язкове"
+
+msgid ""
+"|ocdsDescription| The primary classification for the item. See the "
+"`itemClassificationScheme` to identify preferred classification lists."
+msgstr ""
+"|ocdsDescription| Головний класифікатор об'єкта оренди. Дивитись "
+"`itemClassificationScheme` для визначення класифікації."
+
+msgid ""
+"The only primary classifier is CAV-PS. Additionally, there is a validation "
+"for the input of this classifier due to which the accuracy of at least a "
+"class has to be used."
+msgstr ""
+"Єдиним первинним класифікатором є `CAV-PS`. Додатково існує перевірка "
+"вхідних даних для цього класифікатора - точність повинна бути щонайменше до "
+"рівня класу."
+
+msgid ""
+"Additional classifier is CPVS. The property can be leased, when entering "
+"value PA01-7 in the classifier CPVS field."
+msgstr ""
+"Додатковим класифікатором є CPVS. Власність може бути здана в оренду за "
+"умови налаштування значення `PA01-7` у полі CPVS."
+
+msgid ""
+"|ocdsDescription| An array of additional classifications for the item. See "
+"the `itemClassificationScheme` codelist for common options to use in OCDS."
+msgstr ""
+"|ocdsDescription| Перелік додаткових класифікаторів для об'єкта оренди. "
+"Дивитись `itemClassificationScheme` коди за аналогією використання в OCDS."
+
+msgid ":ref:`Address`"
+msgstr ":ref:`Address`"
+
+msgid ""
+"Address, where the item is located. Classification codes (CAV-PS) for which "
+"`item.address` object is optional are given below:"
+msgstr ""
+"Адреса розміщення об'єкта оренди. Коди класифікатора (CAV-PS) для яких "
+"значення `item.address` є необов'яковим наведені нижче:"
+
+msgid ":download:`CPV <../tutorial/cpv_codes_item_address_optional.json>`"
+msgstr ":download:`CPV <../tutorial/cpv_codes_item_address_optional.json>`"
+
+msgid ""
+":download:`CAV_v2 <../tutorial/cav_v2_codes_item_address_optional.json>`"
+msgstr ""
+":download:`CAV_v2 <../tutorial/cav_v2_codes_item_address_optional.json>`"
+
+msgid "dictionary"
+msgstr "словник"
+
+msgid ""
+"Geographical coordinates of the location. Element consists of the following "
+"items:"
+msgstr ""
+"Географічні координати місцерозташування. Елемент складається з наступних "
+"складових:"
+
+msgid "string, required"
+msgstr "строка, обов'язкове"
+
+msgid "string, optional, usually not used"
+msgstr "строка, необов'язкове, зазвичай не використовується"
+
+msgid ""
+"`location` usually takes precedence over `address` if both are present."
+msgstr ""
+"значення `location` зазвичай має більший пріоритет над значенням `address` "
+"(якщо обидва присутні)."
+
+msgid ":ref:`Period`"
+msgstr ":ref:`Period`"
+
+msgid ""
+"The period which is used to indicate the duration of a contract within which"
+" it is valid. Contract period represents the start and end date for the "
+"contract signed after the property or asset has been sold. It is also can be"
+" used to specify the timeframe of a contact for a lease."
+msgstr ""
+"Період, протягом якого контракт є валідним. Період контракту відображає дату"
+" початку і дату завершення для контракту, що підписаний після продажу "
+"власності. Цей період також може використовуватися задля уточнення часових "
+"рамок орендного договору."
+
+msgid ":ref:`Unit`"
+msgstr ":ref:`Unit`"
+
+msgid ""
+"|ocdsDescription| Description of the unit which the good comes in e.g.  "
+"hours, kilograms. Made up of a unit name, and the value of a single unit."
+msgstr ""
+"|ocdsDescription| Опис одиниці виміру об'єкта оренди.Складається із назви, "
+"значення окремої одиниці."
+
+msgid "decimal"
+msgstr "decimal"
+
+msgid "|ocdsDescription| The number of units required"
+msgstr "|ocdsDescription| Кількість одиниць, обов'язкове"
+
+msgid "PropertyLeaseClassification"
+msgstr "PropertyLeaseClassification"
+
+msgid ""
+"|ocdsDescription| A classification should be drawn from an existing scheme "
+"or list of codes. This field is used to indicate the scheme/codelist from "
+"which the classification is drawn. For line item classifications, this value"
+" should represent a known PropertyItem Classification Scheme wherever "
+"possible."
+msgstr ""
+"|ocdsDescription| Класифікацію потрібно взяти із наявної схеми або списку "
+"кодів.Це поле використовується для визначення схеми/кодів, з яких "
+"класифікація запозичена. Для класифікації позицій, де тільки можливо, це "
+"поле повинне відображати відповідне значення схеми PropertyItem "
+"Classification Scheme."
+
+msgid ""
+"|ocdsDescription| The classification code drawn from the selected scheme."
+msgstr "|ocdsDescription| Код класифікації, взятий з обраної схеми."
+
+msgid "|ocdsDescription| A textual description or title for the code."
+msgstr "|ocdsDescription| Текстовий опис або заголовок для коду українською."
+
+msgid "string"
+msgstr "строка"
+
+msgid "A textual description or title for the code in English."
+msgstr "Текстовий опис або заголовок для коду англійською."
+
+msgid "A textual description or title for the code in Russian."
+msgstr "Текстовий опис або заголовок для коду російською."
+
+msgid "uri"
+msgstr "URI"
+
+msgid ""
+"|ocdsDescription| A URI to identify the code. In the event individual URIs "
+"are not available for items in the identifier scheme this value should be "
+"left blank."
+msgstr ""
+"|ocdsDescription| URI для визначення коду. Не заповнюється при недоступності"
+" для об'єкта оренди."
+
+msgid "Unit"
+msgstr "Unit"
+
+msgid "|ocdsDescription| Name of the unit"
+msgstr "|ocdsDescription| Назва одиниці."
+
+msgid ":ref:`Value`"
+msgstr ":ref:`Value`"
+
+msgid "Value of the unit."
+msgstr "Значення одиниці."
+
+msgid "UN/CEFACT Recommendation 20 unit code."
+msgstr "Код рекомендації UN/CEFACT."
+
+msgid "List of `dgfCDB2CPVCAVClassification` objects"
+msgstr "Список `dgfCDB2CPVCAVClassification` об'єктів"
