@@ -41,15 +41,15 @@ Features
 
 * Procedure can be switched from ``draft`` status to ``active.tendering``.
 
-* During ``tenderPeriod`` participants can ask questions, submit proposals, and upload documents.
+* During ``enquiryPeripod`` participants can ask questions, submit proposals, and upload documents.
 
 * All of the identifiers within the scheme ``CPVS`` can be chosen. ``PA01-7`` is the one to be added automatically.
 
-* The minimum desired participants' count by default is 2, but there is option to decrease it explicitly to 1 participant;
+* The minimum desired participants' number by default is 2, but there is option to decrease it explicitly to 1 participant;
 
 * The only currency (``value.currency``) for this procedure is hryvnia (UAH).
 
-* The items within an auction are allowed to be from different CAV groups.
+* The items within an procedure are allowed to be from different CAV-PS groups.
 
 .. note:: There is predefined list of possible items to lease.
 
