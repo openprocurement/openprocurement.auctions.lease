@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openprocurement.auctions.dgf 0.1\n"
+"Project-Id-Version: openprocurement.auctions.lease 1.1.1-sale\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-09-12 15:36+0300\n"
 "PO-Revision-Date: 2016-09-26 11:24+0200\n"
@@ -395,11 +395,11 @@ msgstr "Та дискваліфікувати кандидата:"
 
 msgid ""
 "In order to specify illustration display order, `index` field can be used "
-"(for details see :ref:`document`). Since this illustration should be "
+"(for details see :ref:`Document`). Since this illustration should be "
 "displayed first, it has ``\"index\": 1``."
 msgstr ""
 "Для того, щоб вказати порядок відображення ілюстрацій, використовується поле"
-" `index` (див. :ref:`document`). Оскільки ця ілюстрація повинна бути "
+" `index` (див. :ref:`Document`). Оскільки ця ілюстрація повинна бути "
 "відображена першою, то вказується ``\"index\": 1``."
 
 msgid ""

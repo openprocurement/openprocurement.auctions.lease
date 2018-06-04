@@ -1,7 +1,7 @@
 .. . Kicking page rebuild 2014-10-30 17:00:08
 .. include:: defs.hrst
 
-.. index:: Contract
+.. index:: Contract, ContractTerms, LeaseTerms, TaxHolidays, EscalationClauses
 .. _Contract:
 
 Contract
@@ -20,7 +20,7 @@ Schema
     string, required
 
     |ocdsDescription|
-    The `Award.id` against which this contract is being issued.
+    The ``Award.id`` against which this contract is being issued.
 
 :contractID:
        string, auto-generated, read-only
@@ -41,7 +41,7 @@ Schema
     Contract description
 
 :value:
-    `Value` object, auto-generated, read-only
+    :ref:`Value` object, auto-generated, read-only
 
     |ocdsDescription|
     The total value of this contract.
@@ -79,13 +79,13 @@ Schema
     The start and end date for the contract.
 
 :dateSigned:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     |ocdsDescription|
     The date the contract was signed. In the case of multiple signatures, the date of the last signature.
 
 :date:
-    string, :ref:`date`
+    string, :ref:`Date`
 
     The date when the contract was changed or activated.
 
@@ -94,3 +94,111 @@ Schema
 
     |ocdsDescription|
     All documents and attachments related to the contract, including any notices.
+
+.. _ContractTerms:
+
+ContractTerms
+=============
+
+Schema
+------
+
+:contractType:
+    string, required
+
+    The only choice currently is ``lease``.
+
+:leaseTerms:
+    :ref:`LeaseTerms`
+
+    The options of property lease.
+
+.. _LeaseTerms:
+
+LeaseTerms
+==========
+
+Schema
+------
+
+:leaseDuration:
+    ISO8601 duration object, required
+
+    Property lease duration in contract.
+
+:taxHolidays:
+    list of :ref:`TaxHolidays`
+
+    Special rated period of lease.
+
+:escalationClauses:
+    list of :ref:`EscalationClauses`
+
+.. _TaxHolidays:
+
+TaxHolidays
+===========
+
+Schema
+------
+
+:taxHolidaysDuration:
+    ISO8601 duration object, required
+
+    Duration of rent holidays.
+
+:conditions:
+    string, required
+
+    Lease rent holidays conditions in Ukrainian.
+
+:conditions_en:
+    string
+
+    Lease rent holidays conditions in English.
+
+:conditions_ru:
+    string
+
+    Lease rent holidays conditions in Russian.
+
+:value:
+    :ref:`Value` object, required
+
+    The lease value for tax holidays.
+
+.. _EscalationClauses:
+
+EscalationClauses
+=================
+
+Schema
+------
+
+:id:
+    string, auto-generated, read-only
+
+:escalationPeriodicity:
+    Time intervals, required
+
+    Periodicity of escalation.
+
+:escalationStepPercentageRange:
+    decimal, required
+
+    Percentage range for escalation.
+
+:conditions:
+    string, required
+
+    Lease rent escalation conditions in Ukrainian.
+
+:conditions_en:
+    string
+
+    Lease rent escalation conditions in English.
+
+:conditions_ru:
+    string
+
+    Lease rent escalation conditions in Russian.
