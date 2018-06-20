@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openprocurement.auctions.dgf 1.0.5\n"
+"Project-Id-Version: openprocurement.auctions.lease 1.1.1-sale\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-16 17:10+0200\n"
 "PO-Revision-Date: 2017-02-16 13:34+0200\n"
@@ -19,8 +19,8 @@ msgid "Award Workflow"
 msgstr "Схема роботи кваліфікації"
 
 #: ../../source/award_workflow.rst:6
-msgid "For a more detailed information see :ref:`award`"
-msgstr "Для більш детальної інформації зверніться до секції :ref:`award`"
+msgid "For a more detailed information see :ref:`Award`"
+msgstr "Для більш детальної інформації зверніться до секції :ref:`Award`"
 
 #: ../../source/award_workflow.rst:8
 msgid ":ref:`Qualification`"
