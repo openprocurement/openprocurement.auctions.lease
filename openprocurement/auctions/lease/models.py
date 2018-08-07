@@ -153,6 +153,10 @@ class AuctionAuctionPeriod(Period):
             raise ValidationError(u'This field is required.')
 
 
+class RectificationPeriod(Period):
+    invalidationDate = IsoDateTimeType()
+
+
 create_role = (blacklist(
     'owner_token', 'transfer_token', 'owner', '_attachments', 'revisions', 'date', 'dateModified', 'doc_id', 'auctionID', 'bids',
     'documents', 'awards', 'questions', 'complaints', 'auctionUrl', 'status',
@@ -184,7 +188,7 @@ class TaxHolidays(Model):
         if auction.get('value').currency != value.currency:
             raise ValidationError(u"currency of taxHolidays value should be identical to currency of value of auction")
 
-    
+
 class EscalationClauses(Model):
     id = MD5Type(required=True, default=lambda: uuid4().hex)
     escalationPeriodicity = IsoDurationType(required=True)
@@ -226,7 +230,7 @@ class Auction(BaseAuction):
             'Administrator': (whitelist('rectificationPeriod') + Administrator_role),
         }
 
-    _procedure_type = "propertyLease"
+    _internal_type = "propertyLease"
     awards = ListType(ModelType(Award), default=list())
     bids = ListType(ModelType(Bid), default=list())  # A list of all the companies who entered submissions for the auction.
     cancellations = ListType(ModelType(Cancellation), default=list())

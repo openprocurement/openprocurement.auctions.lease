@@ -70,3 +70,5 @@ def includeme_lease(config, plugin_map):
     LOGGER.info("Included openprocurement.auctions.lease.property plugin",
                 extra={'MESSAGE_ID': 'included_plugin'})
 
+    # add accreditation level
+    config.registry.accreditation['auction'][Auction._internal_type] = plugin_map['accreditation']
