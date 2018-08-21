@@ -152,11 +152,6 @@ class AuctionAuctionPeriod(Period):
         if not auction.revisions and not startDate:
             raise ValidationError(u'This field is required.')
 
-
-class RectificationPeriod(Period):
-    invalidationDate = IsoDateTimeType()
-
-
 create_role = (blacklist(
     'owner_token', 'transfer_token', 'owner', '_attachments', 'revisions', 'date', 'dateModified', 'doc_id', 'auctionID', 'bids',
     'documents', 'awards', 'questions', 'complaints', 'auctionUrl', 'status',
