@@ -18,7 +18,8 @@ from openprocurement.auctions.core.utils import (
 
 from .constants import (
     DOCUMENT_TYPE_URL_ONLY,
-    DOCUMENT_TYPE_OFFLINE
+    DOCUMENT_TYPE_OFFLINE,
+    MANDATORY_ADDITIONAL_CLASSIFICATOR
 )
 from openprocurement.auctions.core.interfaces import IAuctionManager
 
