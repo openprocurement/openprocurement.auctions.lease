@@ -46,7 +46,7 @@ def edit_role(self):
         'description', 'description_en', 'description_ru',
         'features', 'hasEnquiries', 'items', 'procuringEntity',
         'value', 'minimalStep', 'guarantee', 'tenderAttempts', 'title_en', 'lotIdentifier', 'title_ru',
-        'title'
+        'title', 'contractTerms'
     ])
     if SANDBOX_MODE:
         fields.add('procurementMethodDetails')
@@ -91,7 +91,7 @@ def create_auction_lease_invalid(self):
 
     now = get_now()
     auction_data = deepcopy(self.initial_data)
-    auction_data['tenderPeriod'] = {'endDate': (now + timedelta(days=11)).isoformat()}
+    auction_data['tenderPeriod'] = {'endDate': (now + timedelta(days=10)).isoformat()}
     auction_data['auctionPeriod'] = {'startDate': (now + timedelta(days=20)).isoformat()}
     response = self.app.post_json(request_path, {'data': auction_data}, status=422)
     self.assertEqual(response.status, '422 Unprocessable Entity')
