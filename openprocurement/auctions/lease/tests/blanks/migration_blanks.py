@@ -5,7 +5,6 @@ from uuid import uuid4
 
 from openprocurement.auctions.core.utils import get_now
 
-from openprocurement.auctions.lease.migration import migrate_data
 # MigrateTestFrom1To2Bids
 
 def migrate_one_pending(self):
@@ -22,7 +21,7 @@ def migrate_one_pending(self):
     auction['awards'] = [award]
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
     self.assertEqual(auction['awards'][0]['status'], 'pending.payment')
@@ -110,7 +109,7 @@ def migrate_one_active(self):
     auction['status'] = 'active.awarded'
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
     self.assertEqual(auction['awards'][0]['status'], 'active')
@@ -176,7 +175,7 @@ def migrate_unsuccessful_pending(self):
 
     self.db.save(auction)
 
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
     self.assertEqual(auction['bids'][0]['status'], 'active')
@@ -239,7 +238,7 @@ def migrate_unsuccessful_active(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
@@ -267,7 +266,7 @@ def migrate_pending_to_unsuccesful(self):
     auction['awards'] = [award]
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
     self.assertEqual(auction['awards'][0]['status'], 'pending.payment')
@@ -323,7 +322,7 @@ def migrate_pending_to_complete(self):
     auction['awards'] = [award]
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
     self.assertEqual(auction['awards'][0]['status'], 'pending.payment')
@@ -446,7 +445,7 @@ def migrate_active_to_unsuccessful(self):
     auction.update(auction)
     self.db.save(auction)
 
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     self.assertEqual(len(auction['awards']), 2)
     self.assertEqual(auction['awards'][0]['status'], 'active')
@@ -536,7 +535,7 @@ def migrate_active_to_complete(self):
     auction.update(auction)
     self.db.save(auction)
 
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -590,7 +589,7 @@ def migrate_cancelled_pending_to_complete(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -692,7 +691,7 @@ def migrate_unsuccessful_pending_to_complete(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -790,7 +789,7 @@ def migrate_unsuccessful_active_to_complete(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -853,7 +852,7 @@ def migrate_cancelled_unsuccessful_pending(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -926,7 +925,7 @@ def migrate_cancelled_unsuccessful_cancelled_pending_to_unsuccessful(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -1031,7 +1030,7 @@ def migrate_cancelled_unsuccessful_cancelled_active_to_unsuccessful(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -1100,7 +1099,7 @@ def migrate_awards_number(self):
     auction.update(auction)
     awards_num = len(auction['awards'])
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
     auction = self.app.get('/auctions/{}'.format(self.auction_id)).json['data']
     migrated_awards_num = len(auction['awards'])
     self.assertEqual(awards_num, migrated_awards_num)
@@ -1132,7 +1131,7 @@ def migrate_unsuccessful_unsuccessful_pending(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -1205,7 +1204,7 @@ def migrate_unsuccessful_unsuccessful_active(self):
 
     auction.update(auction)
     self.db.save(auction)
-    migrate_data(self.app.app.registry, 1)
+    self.runner.migrate(self.steps)
 
     response = self.app.get('/auctions/{}'.format(self.auction_id))
     auction = response.json['data']
@@ -1217,3 +1216,130 @@ def migrate_unsuccessful_unsuccessful_active(self):
     self.assertEqual(auction['awards'][1]['status'], 'unsuccessful')
     self.assertEqual(auction['awards'][2]['status'], 'active')
     self.assertEqual(auction['contracts'][0]['status'], 'pending')
+
+
+def migrate_document_of_auction_documents(self):
+    auction = self.db.get(self.auction_id)
+    self.assertIsNone(auction.get('documents'))
+    auction['documents'] = [self.test_document_data]
+
+    auction.update(auction)
+    self.db.save(auction)
+
+    response = self.app.get('/auctions/{}'.format(self.auction_id))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['documents'][0]['documentOf'], 'tender')
+
+    self.runner.migrate(self.steps)
+
+    response = self.app.get('/auctions/{}'.format(self.auction_id))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['documents'][0]['documentOf'], 'auction')
+
+
+def migrate_document_of_bids_documents(self):
+    auction = self.db.get(self.auction_id)
+    bid, bid_id = self.initial_bids[0], self.initial_bids[0]['id']
+
+    auction['bids'] = [self.initial_bids[0]]
+    auction['status'] = 'complete'
+    auction['bids'][0]['documents'] = [self.test_document_data]
+    auction.update(auction)
+    self.db.save(auction)
+
+    response = self.app.get(
+        '/auctions/{}/bids/{}/documents?acc_token={}'.format(self.auction_id, bid_id, self.initial_bids_tokens[bid_id]))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data'][0]['documentOf'], 'tender')
+
+    self.runner.migrate(self.steps)
+
+    response = self.app.get(
+        '/auctions/{}/bids/{}/documents?acc_token={}'.format(self.auction_id, bid_id, self.initial_bids_tokens[bid_id]))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data'][0]['documentOf'], 'auction')
+
+
+def migrate_document_of_awards_documents(self):
+    auction = self.db.get(self.auction_id)
+    _id = uuid4().hex
+    award = {
+        'id': _id,
+        'bid_id': self.initial_bids[0]['id'],
+        "documents": [self.test_document_data]
+    }
+
+    auction['bids'] = [self.initial_bids[0]]
+    auction['awards'] = [award]
+    auction.update(auction)
+    self.db.save(auction)
+
+    response = self.app.get('/auctions/{}/awards/{}/documents'.format(self.auction_id, _id))
+    self.assertEqual(response.json['data'][0]['documentOf'], 'tender')
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+
+    self.runner.migrate(self.steps)
+
+    response = self.app.get('/auctions/{}/awards/{}/documents'.format(self.auction_id, _id))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data'][0]['documentOf'], 'auction')
+
+
+def migrate_document_of_contracts_documents(self):
+    auction = self.db.get(self.auction_id)
+    _id = uuid4().hex
+    contract = {
+        'id': _id,
+        "documents": [self.test_document_data]
+    }
+
+    auction['contracts'] = [contract]
+    auction.update(auction)
+    self.db.save(auction)
+
+    response = self.app.get('/auctions/{}/contracts/{}/documents'.format(self.auction_id, _id))
+    self.assertEqual(response.json['data'][0]['documentOf'], 'tender')
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+
+    self.runner.migrate(self.steps)
+
+    response = self.app.get('/auctions/{}/contracts/{}/documents'.format(self.auction_id, _id))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data'][0]['documentOf'], 'auction')
+
+
+def migrate_document_of_cancellations_documents(self):
+
+    auction = self.db.get(self.auction_id)
+    id = uuid4().hex
+
+    auction['cancellations'] = [{
+        "reason": "cancellation reason",
+        "id": id,
+        "documents": [self.test_document_data, self.test_document_data],
+    }]
+
+    auction.update(auction)
+    self.db.save(auction)
+
+    response = self.app.get('/auctions/{}/cancellations/{}/documents'.format(self.auction_id, id))
+    self.assertEqual(response.json['data'][0]['documentOf'], 'tender')
+    self.assertEqual(response.json['data'][1]['documentOf'], 'tender')
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+
+    self.runner.migrate(self.steps)
+
+    response = self.app.get('/auctions/{}/cancellations/{}/documents'.format(self.auction_id, id))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data'][0]['documentOf'], 'auction')
+    self.assertEqual(response.json['data'][1]['documentOf'], 'auction')

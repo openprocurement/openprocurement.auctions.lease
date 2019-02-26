@@ -42,8 +42,8 @@ from openprocurement.auctions.core.models.roles import (
     Administrator_role,
     edit_role,
 )
-from openprocurement.auctions.core.plugins.awarding.v2_1.models import Award
-from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contract
+from openprocurement.auctions.core.plugins.awarding.v2_1.models import Award as BaseAward
+from openprocurement.auctions.core.plugins.contracting.v2_1.models import Contract as BaseContract
 from openprocurement.auctions.core.utils import (
     SANDBOX_MODE, TZ, calculate_business_date, get_request_from_root, get_now,
     AUCTIONS_COMPLAINT_STAND_STILL_TIME as COMPLAINT_STAND_STILL_TIME
@@ -93,6 +93,18 @@ class ProcuringEntity(flashProcuringEntity):
     additionalIdentifiers = ListType(ModelType(Identifier))
 
 
+class LeaseDocument(Document):
+    documentOf = StringType(required=True, choices=['auction', 'item', 'lot', 'tender'], default='auction')
+
+
+class Award(BaseAward):
+    documentOf = StringType(required=True, choices=['auction', 'item', 'lot', 'tender'], default='auction')
+
+
+class Contract(BaseContract):
+    documentOf = StringType(required=True, choices=['auction', 'item', 'lot', 'tender'], default='auction')
+
+
 class Bid(BaseBid):
     class Options:
         roles = {
@@ -101,19 +113,20 @@ class Bid(BaseBid):
 
     status = StringType(choices=['active', 'draft', 'invalid'], default='active')
     tenderers = ListType(ModelType(Organization), required=True, min_size=1, max_size=1)
-    documents = ListType(ModelType(Document), default=list())
+    documents = ListType(ModelType(LeaseDocument), default=list())
     qualified = BooleanType(required=True, choices=[True])
 
     @bids_validation_wrapper
     def validate_value(self, data, value):
         BaseBid._validator_functions['value'](self, data, value)
 
+
 class Question(BaseQuestion):
     author = ModelType(Organization, required=True)
 
 
 class Cancellation(BaseCancellation):
-    documents = ListType(ModelType(Document), default=list())
+    documents = ListType(ModelType(LeaseDocument), default=list())
 
 
 def validate_not_available(items, *args):
@@ -232,7 +245,7 @@ class Auction(BaseAuction):
     complaints = ListType(ModelType(Complaint), default=list())
     contracts = ListType(ModelType(Contract), default=list())
     lotIdentifier = StringType()
-    documents = ListType(ModelType(Document), default=list())  # All documents and attachments related to the auction.
+    documents = ListType(ModelType(LeaseDocument), default=list())  # All documents and attachments related to the auction.
     enquiryPeriod = ModelType(Period)  # The period during which enquiries may be made and will be answered.
     rectificationPeriod = ModelType(RectificationPeriod)  # The period during which editing of main procedure fields are allowed
     tenderPeriod = ModelType(Period)  # The period when the auction is open for submissions. The end date is the closing date for auction submissions.
