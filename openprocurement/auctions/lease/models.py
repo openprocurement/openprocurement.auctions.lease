@@ -125,8 +125,24 @@ class Question(BaseQuestion):
     author = ModelType(Organization, required=True)
 
 
+class RubbleCancellationDocument(LeaseDocument):
+    documentType = StringType(choices=[
+        'auctionNotice', 'awardNotice', 'contractNotice',
+        'notice', 'biddingDocuments', 'technicalSpecifications',
+        'evaluationCriteria', 'clarifications', 'shortlistedFirms',
+        'riskProvisions', 'billOfQuantity', 'bidders', 'conflictOfInterest',
+        'debarments', 'evaluationReports', 'winningBid', 'complaints',
+        'contractSigned', 'contractArrangements', 'contractSchedule',
+        'contractAnnexe', 'contractGuarantees', 'subContract',
+        'eligibilityCriteria', 'contractProforma', 'commercialProposal',
+        'qualificationDocuments', 'eligibilityDocuments', 'tenderNotice',
+        'illustration', 'auctionProtocol', 'x_dgfAssetFamiliarization',
+        'x_presentation', 'x_nda', 'cancellationDetails'
+    ])
+
+
 class Cancellation(BaseCancellation):
-    documents = ListType(ModelType(LeaseDocument), default=list())
+    documents = ListType(ModelType(RubbleCancellationDocument), default=list())
 
 
 def validate_not_available(items, *args):
