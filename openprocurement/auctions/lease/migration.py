@@ -7,9 +7,7 @@ from openprocurement.auctions.core.plugins.awarding.v2_1.migration import (
 from openprocurement.auctions.core.utils import migrate_all_document_of_tender
 from openprocurement.api.migration import (
     BaseMigrationsRunner,
-    BaseMigrationStep,
-    MigrationResourcesDTO,
-    AliasesInfoDTO
+    BaseMigrationStep
 )
 
 from openprocurement.auctions.lease.models import Auction
@@ -18,9 +16,6 @@ from openprocurement.auctions.lease.models import Auction
 LOGGER = logging.getLogger(__name__)
 SCHEMA_VERSION = 1
 SCHEMA_DOC = 'openprocurement_auctions_dgf_schema'
-PACKAGE_ALIASES = {
-    'openprocurement.auctions.lease': ['propertyLease', 'leaseFinancial']
-}
 
 
 class LeaseMigrationsRunner(BaseMigrationsRunner):
@@ -64,8 +59,6 @@ class DocumentOfStep(BaseMigrationStep):
 MIGRATION_STEPS = (MigrateAwardingStep, DocumentOfStep)
 
 
-def migrate(db):
-    aliases_info_dto = AliasesInfoDTO(PACKAGE_ALIASES)
-    migration_resource_dto = MigrationResourcesDTO(db, aliases_info_dto)
-    runner = LeaseMigrationsRunner(migration_resource_dto)
+def migrate(resources):
+    runner = LeaseMigrationsRunner(resources)
     runner.migrate(MIGRATION_STEPS)
