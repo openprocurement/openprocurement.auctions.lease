@@ -12,7 +12,6 @@ from openprocurement.auctions.lease.migration import (
     LeaseMigrationsRunner,
     MigrateAwardingStep,
     DocumentOfStep,
-    PACKAGE_ALIASES
 )
 from openprocurement.auctions.lease.tests.base import BaseWebTest, BaseAuctionWebTest, test_bids, test_auction_data
 from openprocurement.auctions.lease.tests.blanks.migration_blanks import (
@@ -45,7 +44,9 @@ from openprocurement.auctions.lease.tests.blanks.migration_blanks import (
 
 
 def get_runner(db):
-    return LeaseMigrationsRunner(MigrationResourcesDTO_mock(db, PACKAGE_ALIASES))
+    return LeaseMigrationsRunner(
+        MigrationResourcesDTO_mock(db, {'openprocurement.auctions.lease': ['propertyLease', 'leaseFinancial']})
+    )
 
 class MigrateTest(BaseWebTest):
 
