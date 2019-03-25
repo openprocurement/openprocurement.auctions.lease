@@ -29,7 +29,8 @@ from openprocurement.auctions.core.models.schema import (
     dgfCDB2AdditionalClassification,
     dgfCDB2CPVCAVClassification,
     dgfCDB2Complaint as Complaint,
-    dgfCDB2Document as Document,
+    AuctionDocument,
+    AuctionCancellationDetailsDocument,
     dgfCDB2Item as Item,
     dgfOrganization as Organization,
     get_auction,
@@ -93,16 +94,12 @@ class ProcuringEntity(flashProcuringEntity):
     additionalIdentifiers = ListType(ModelType(Identifier))
 
 
-class LeaseDocument(Document):
-    documentOf = StringType(required=True, choices=['auction', 'item', 'lot', 'tender'], default='auction')
-
-
 class Award(BaseAward):
-    documentOf = StringType(required=True, choices=['auction', 'item', 'lot', 'tender'], default='auction')
+    documents = ListType(ModelType(AuctionDocument), default=list())
 
 
 class Contract(BaseContract):
-    documentOf = StringType(required=True, choices=['auction', 'item', 'lot', 'tender'], default='auction')
+    documents = ListType(ModelType(AuctionDocument), default=list())
 
 
 class Bid(BaseBid):
@@ -113,7 +110,7 @@ class Bid(BaseBid):
 
     status = StringType(choices=['active', 'draft', 'invalid'], default='active')
     tenderers = ListType(ModelType(Organization), required=True, min_size=1, max_size=1)
-    documents = ListType(ModelType(LeaseDocument), default=list())
+    documents = ListType(ModelType(AuctionDocument), default=list())
     qualified = BooleanType(required=True, choices=[True])
 
     @bids_validation_wrapper
@@ -125,24 +122,8 @@ class Question(BaseQuestion):
     author = ModelType(Organization, required=True)
 
 
-class RubbleCancellationDocument(LeaseDocument):
-    documentType = StringType(choices=[
-        'auctionNotice', 'awardNotice', 'contractNotice',
-        'notice', 'biddingDocuments', 'technicalSpecifications',
-        'evaluationCriteria', 'clarifications', 'shortlistedFirms',
-        'riskProvisions', 'billOfQuantity', 'bidders', 'conflictOfInterest',
-        'debarments', 'evaluationReports', 'winningBid', 'complaints',
-        'contractSigned', 'contractArrangements', 'contractSchedule',
-        'contractAnnexe', 'contractGuarantees', 'subContract',
-        'eligibilityCriteria', 'contractProforma', 'commercialProposal',
-        'qualificationDocuments', 'eligibilityDocuments', 'tenderNotice',
-        'illustration', 'auctionProtocol', 'x_dgfAssetFamiliarization',
-        'x_presentation', 'x_nda', 'cancellationDetails'
-    ])
-
-
 class Cancellation(BaseCancellation):
-    documents = ListType(ModelType(RubbleCancellationDocument), default=list())
+    documents = ListType(ModelType(AuctionCancellationDetailsDocument), default=list())
 
 
 def validate_not_available(items, *args):
