@@ -22,9 +22,6 @@ from openprocurement.auctions.lease.tests.blanks.chronograph_blanks import (
     # AuctionSwitchQualificationResourceTest
     switch_to_qualification,
     switch_to_qualification1,
-    # AuctionAuctionPeriodResourceTest
-    set_auction_period,
-    reset_auction_period
 )
 
 
@@ -58,13 +55,6 @@ class AuctionLotSwitchAuctionResourceTest(AuctionSwitchAuctionResourceTest):
 @unittest.skip("option not available")
 class AuctionLotSwitchUnsuccessfulResourceTest(AuctionSwitchUnsuccessfulResourceTest):
     initial_lots = test_lots
-
-
-class AuctionAuctionPeriodResourceTest(BaseAuctionWebTest):
-    initial_bids = test_bids
-
-    test_set_auction_period = snitch(set_auction_period)
-    test_reset_auction_period = snitch(reset_auction_period)
 
 
 @unittest.skip("option not available")
@@ -111,6 +101,7 @@ class AuctionLotAwardComplaintSwitchResourceTest(AuctionAwardComplaintSwitchReso
         }})
         award = response.json['data']
         self.award_id = award['id']
+
 
 
 def suite():

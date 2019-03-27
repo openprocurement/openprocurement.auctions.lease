@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import unittest
-from copy import deepcopy
 
 from openprocurement.auctions.core.tests.auctions import (
     AuctionAuctionResourceTestMixin,
@@ -13,7 +12,7 @@ from openprocurement.auctions.core.tests.blanks.auction_blanks import (
     post_auction_auction_not_changed,
     post_auction_auction_reversed,
     # AuctionFeaturesAuctionResourceTest
-    get_auction_features_auction
+    get_auction_features_auction,
 )
 
 from openprocurement.auctions.lease.constants import DEFAULT_PROCUREMENT_METHOD_TYPE_LEASE
@@ -28,6 +27,9 @@ from openprocurement.auctions.lease.tests.blanks.auction_blanks import (
     post_auction_auction_lot,
     # AuctionMultipleLotAuctionResourceTest
     post_auction_auction_2_lots,
+    # LeaseAuctionBridgePatchPeriod
+    set_auction_period,
+    reset_auction_period
 )
 
 
@@ -118,11 +120,20 @@ class AuctionFeaturesAuctionResourceTest(BaseAuctionWebTest):
     test_get_auction_features_auction = snitch(get_auction_features_auction)
 
 
+class LeaseAuctionBridgePatchPeriod(BaseAuctionWebTest):
+    initial_bids = test_bids
+
+    test_set_auction_period = snitch(set_auction_period)
+    test_reset_auction_period = snitch(reset_auction_period)
+
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(unittest.makeSuite(AuctionAuctionResourceTest))
     suite.addTest(unittest.makeSuite(AuctionSameValueAuctionResourceTest))
+    suite.addTest(unittest.makeSuite(LeaseAuctionBridgePatchPeriod))
     suite.addTest(unittest.makeSuite(AuctionFeaturesAuctionResourceTest))
+    suite.addTest(unittest.makeSuite(LeaseAuctionBridgePatchPeriod))
     return suite
 
 
