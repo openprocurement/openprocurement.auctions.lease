@@ -5,9 +5,15 @@ from uuid import uuid4
 from copy import deepcopy
 
 from openprocurement.auctions.core.tests.base import snitch
+from openprocurement.api.tests.fixtures.mocks import MigrationResourcesDTO_mock
 
-from openprocurement.auctions.lease.migration import migrate_data, get_db_schema_version, set_db_schema_version, SCHEMA_VERSION
-from openprocurement.auctions.lease.tests.base import BaseWebTest, BaseAuctionWebTest, test_bids
+from openprocurement.auctions.lease.migration import (
+    SCHEMA_VERSION,
+    LeaseMigrationsRunner,
+    MigrateAwardingStep,
+    DocumentOfStep,
+)
+from openprocurement.auctions.lease.tests.base import BaseWebTest, BaseAuctionWebTest, test_bids, test_auction_data
 from openprocurement.auctions.lease.tests.blanks.migration_blanks import (
     # MigrateTestFrom1To2Bids
     migrate_one_pending,
@@ -28,20 +34,32 @@ from openprocurement.auctions.lease.tests.blanks.migration_blanks import (
     migrate_awards_number,
     # MigrateTestFrom1To2WithThreeBids
     migrate_unsuccessful_unsuccessful_pending,
-    migrate_unsuccessful_unsuccessful_active
+    migrate_unsuccessful_unsuccessful_active,
+    migrate_document_of_auction_documents,
+    migrate_document_of_bids_documents,
+    migrate_document_of_awards_documents,
+    migrate_document_of_contracts_documents,
+    migrate_document_of_cancellations_documents
 )
 
+
+def get_runner(db):
+    return LeaseMigrationsRunner(
+        MigrationResourcesDTO_mock(db, {'openprocurement.auctions.lease': ['propertyLease', 'leaseFinancial']})
+    )
 
 class MigrateTest(BaseWebTest):
 
     def setUp(self):
         super(MigrateTest, self).setUp()
-        migrate_data(self.app.app.registry)
+        self.runner = get_runner(self.db)
+        self.steps = (MigrateAwardingStep,)
+        self.runner.migrate(self.steps)
 
     def test_migrate(self):
-        self.assertEqual(get_db_schema_version(self.db), SCHEMA_VERSION)
-        migrate_data(self.app.app.registry, 1)
-        self.assertEqual(get_db_schema_version(self.db), SCHEMA_VERSION)
+        self.assertEqual(self.runner._get_db_schema_version(), self.runner.SCHEMA_VERSION)
+        self.runner.migrate(self.steps)
+        self.assertEqual(self.runner._get_db_schema_version(), self.runner.SCHEMA_VERSION)
 
 
 class MigrateTestFrom1To2Bids(BaseAuctionWebTest):
@@ -54,8 +72,10 @@ class MigrateTestFrom1To2Bids(BaseAuctionWebTest):
 
     def setUp(self):
         super(MigrateTestFrom1To2Bids, self).setUp()
-        migrate_data(self.app.app.registry)
-        set_db_schema_version(self.db, 0)
+        self.runner = get_runner(self.db)
+        self.steps = (MigrateAwardingStep,)
+        self.runner.migrate(self.steps)
+        self.runner._set_db_schema_version(0)
         auction = self.db.get(self.auction_id)
         auction['bids'][0]['value']['amount'] = auction['value']['amount']
         self.db.save(auction)
@@ -79,8 +99,10 @@ class MigrateTestFrom1To2WithTwoBids(BaseAuctionWebTest):
 
     def setUp(self):
         super(MigrateTestFrom1To2WithTwoBids, self).setUp()
-        migrate_data(self.app.app.registry)
-        set_db_schema_version(self.db, 0)
+        self.runner = get_runner(self.db)
+        self.steps = (MigrateAwardingStep,)
+        self.runner.migrate(self.steps)
+        self.runner._set_db_schema_version(0)
 
 
 class MigrateTestFrom1To2WithThreeBids(BaseAuctionWebTest):
@@ -91,12 +113,39 @@ class MigrateTestFrom1To2WithThreeBids(BaseAuctionWebTest):
 
     def setUp(self):
         super(MigrateTestFrom1To2WithThreeBids, self).setUp()
-        migrate_data(self.app.app.registry)
-        set_db_schema_version(self.db, 0)
+        self.runner = get_runner(self.db)
+        self.steps = (MigrateAwardingStep,)
+        self.runner.migrate(self.steps)
+        self.runner._set_db_schema_version(0)
         auction = self.db.get(self.auction_id)
         auction['bids'].append(deepcopy(auction['bids'][0]))
         auction['bids'][-1]['id'] = uuid4().hex
         self.db.save(auction)
+
+
+class MigrateTestDocumentOf(BaseAuctionWebTest):
+    initial_data = test_auction_data
+    initial_bids = test_bids
+    test_document_data = {
+        'title': 'auction_protocol.pdf',
+        'hash': 'md5:' + '0' * 32,
+        'format': 'application/msword',
+        "description": "auction protocol",
+        "documentType": 'auctionProtocol',
+        'url': 'http://localhost/test',
+        'documentOf': 'tender'
+    }
+    test_migrate_document_of_auction_documents = snitch(migrate_document_of_auction_documents)
+    test_migrate_document_of_bids_documents = snitch(migrate_document_of_bids_documents)
+    test_migrate_document_of_awards_documents = snitch(migrate_document_of_awards_documents)
+    test_migrate_document_of_contracts_documents = snitch(migrate_document_of_contracts_documents)
+    test_migrate_document_of_cancellations_documents = snitch(migrate_document_of_cancellations_documents)
+
+    def setUp(self):
+        super(MigrateTestDocumentOf, self).setUp()
+        self.runner = get_runner(self.db)
+        self.steps = (DocumentOfStep, )
+
 
 
 def suite():
