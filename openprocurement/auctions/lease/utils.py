@@ -4,7 +4,6 @@ from logging import getLogger
 from pkg_resources import get_distribution
 
 from openprocurement.auctions.core.utils import (
-    API_DOCUMENT_BLACKLISTED_FIELDS as DOCUMENT_BLACKLISTED_FIELDS,
     TZ,
     check_auction_status,
     check_complaint_status,
@@ -19,7 +18,8 @@ from openprocurement.auctions.core.utils import (
 from .constants import (
     DOCUMENT_TYPE_URL_ONLY,
     DOCUMENT_TYPE_OFFLINE,
-    MANDATORY_ADDITIONAL_CLASSIFICATOR
+    MANDATORY_ADDITIONAL_CLASSIFICATOR,
+    DOCUMENT_BLACKLISTED_FIELDS
 )
 from openprocurement.auctions.core.interfaces import IAuctionManager
 

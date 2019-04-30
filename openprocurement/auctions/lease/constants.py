@@ -6,6 +6,14 @@ from openprocurement.auctions.core.constants import TZ
 # document types
 DOCUMENT_TYPE_OFFLINE = ['x_dgfAssetFamiliarization']
 DOCUMENT_TYPE_URL_ONLY = ['virtualDataRoom']
+DOCUMENT_BLACKLISTED_FIELDS = (
+    'title',
+    'format',
+    'url',
+    'dateModified',
+    'accessDetails',
+    'hash'
+)
 
 # requiremnt periods
 MINIMAL_EXPOSITION_PERIOD = timedelta(days=6)
