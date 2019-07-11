@@ -27,7 +27,7 @@ from openprocurement.auctions.lease.constants import (
 DEFAULT_ACCELERATION = 1440
 
 
-now = datetime.now()
+now = get_now()
 test_organization = {
     "name": u"Державне управління справами",
     "identifier": {
